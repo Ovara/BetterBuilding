@@ -33,7 +33,12 @@ public class toggleUpdates implements CommandExecutor {
         }
 
         PlayerUpdateStateManager.togglePlayerState(player);
-        player.sendMessage("Block updates set to " + !PlayerUpdateStateManager.getPlayerState(player));
+        if (PlayerUpdateStateManager.getPlayerState(player)) {
+            player.sendMessage("Block updates toggled off.");
+        } else {
+            player.sendMessage("Block updates toggled on. ");
+
+        }
         return true;
     }
 }

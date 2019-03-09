@@ -23,7 +23,7 @@ public class cloneblock implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (!player.hasPermission("betterbuilding.getblock")) {
+        if (!player.hasPermission("betterbuilding.cloneblock")) {
             player.sendMessage(ChatColor.RED + "You don't have permission to use this command!");
             return true;
         }
