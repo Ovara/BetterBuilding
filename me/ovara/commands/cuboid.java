@@ -1,21 +1,19 @@
 package me.ovara.commands;
 
-import me.ovara.function.BBItem;
-import me.ovara.function.PlaceholderHandler;
-import org.bukkit.Bukkit;
+import me.ovara.function.visualisation.VisualisationManager;
+import me.ovara.function.visualisation.cuboid.CuboidObject;
 import org.bukkit.ChatColor;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class betterBlock implements CommandExecutor {
+public class cuboid implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (!cmd.getName().equalsIgnoreCase("betterblock")) {
+        if (!cmd.getName().equalsIgnoreCase("cuboid")) {
             return true;
         }
 
@@ -26,7 +24,7 @@ public class betterBlock implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (!player.hasPermission("betterbuilding.betterblock")) {
+        if (!player.hasPermission("betterbuilding.vis.cuboid")) {
             player.sendMessage(ChatColor.RED + "You don't have permission to use this command!");
             return true;
         }
@@ -36,22 +34,20 @@ public class betterBlock implements CommandExecutor {
             return true;
         }
 
-        String name = args[0];
-
-        BlockData block;
-
-        String blockString;
+        int time;
 
         try {
-            blockString = new PlaceholderHandler().convertPlaceHolders(player, name);
-            block = Bukkit.createBlockData(blockString);
-        } catch (IllegalArgumentException e) {
-            player.sendMessage(ChatColor.RED + "Invalid material or blockdata!");
+            time = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            player.sendMessage(ChatColor.RED + "Invalid time given!");
             return true;
         }
-
-        player.getInventory().addItem(new BBItem().get(block.getMaterial(), name));
+        CuboidObject cuboidObject = new CuboidObject(
+                player,
+                null,
+                null,
+                time);
+        VisualisationManager.newVis(player, cuboidObject);
         return true;
-
     }
 }

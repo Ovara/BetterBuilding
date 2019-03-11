@@ -1,5 +1,6 @@
 package me.ovara.commands;
 
+import com.destroystokyo.paper.block.TargetBlockInfo;
 import me.ovara.function.BBItem;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
@@ -33,8 +34,10 @@ public class cloneblock implements CommandExecutor {
             return true;
         }
 
-        Block lookingAt = player.getTargetBlock(5);
-        player.getInventory().addItem(new BBItem().get(lookingAt.getType(), lookingAt.getBlockData().getAsString()));
+        Block lookingAt = player.getTargetBlock(5, TargetBlockInfo.FluidMode.ALWAYS);
+        if (lookingAt != null) {
+            player.getInventory().addItem(new BBItem().get(lookingAt.getType(), lookingAt.getBlockData().getAsString()));
+        } else player.sendMessage(ChatColor.RED + "You aren't looking at a block!");
         return true;
     }
 }

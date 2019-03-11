@@ -23,9 +23,7 @@ public class BetterBlockPlaceEventListener implements Listener {
 
     private BetterBuildingMain plugin;
 
-    public BetterBlockPlaceEventListener() {
-        plugin = BetterBuildingMain.getPlugin(BetterBuildingMain.class);
-    }
+    public BetterBlockPlaceEventListener() { plugin = BetterBuildingMain.getPlugin(BetterBuildingMain.class); }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
