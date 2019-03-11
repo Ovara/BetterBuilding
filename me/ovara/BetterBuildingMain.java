@@ -4,6 +4,8 @@ import me.ovara.commands.*;
 import me.ovara.function.Listeners.BetterBlockPlaceEventListener;
 import me.ovara.function.Listeners.BlockUpdateBlocker;
 import me.ovara.function.Listeners.PlayerUpdateStateManager;
+import me.ovara.function.updateNotifier.CheckUpdate;
+import me.ovara.function.updateNotifier.UpdateNotifier;
 import me.ovara.function.visualisation.VisualisationClickListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +16,7 @@ public final class BetterBuildingMain extends JavaPlugin {
         this.saveDefaultConfig();
         registerEvents();
         registerCommands();
-        new UpdateNotifier().checkForUpdates();
+        CheckUpdate.checkForUpdates();
     }
 
     private void registerEvents() {
